@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,16 +50,10 @@ fun SizeObject(
         modifier =
             Modifier
                 .size(sizeDp.dp)
-                .then(
-                    Modifier
-                        .clickable(
-                            enabled = enabled,
-                            onClick = onClick
-                        )
-                )
-                .then(
-                    Modifier
-                        .size(sizeDp.dp)
+                .scale(scale.value)
+                .clickable(
+                    enabled = enabled,
+                    onClick = onClick
                 ),
 
         shape = CircleShape,
@@ -79,14 +74,19 @@ fun SizeObject(
     ) {
 
         Box(
-            contentAlignment =
-                Alignment.Center
+            contentAlignment = Alignment.Center
         ) {
 
-            Image(
-                painter = painterResource(R.drawable.teddy),
-                contentDescription = "Teddy Bear"
-                )
+            Text(
+                text = emoji,
+
+                fontSize =
+                    when {
+                        sizeDp <= 100 -> 50.sp
+                        sizeDp <= 150 -> 75.sp
+                        else -> 100.sp
+                    }
+            )
         }
     }
 }
