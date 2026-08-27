@@ -28,6 +28,7 @@ import com.littlelearners.components.AppBackground
 import com.littlelearners.components.SizeObject
 import com.littlelearners.model.QuestionType
 import kotlinx.coroutines.delay
+import com.littlelearners.components.ConfettiPlaceholder
 
 @Composable
 fun SizeGameScreen(
@@ -117,10 +118,10 @@ fun SizeGameScreen(
                     when (state.question) {
 
                         QuestionType.BIG ->
-                            "👆 Find the BIG item!"
+                            "👆 Tap the BIG item!"
 
                         QuestionType.BIGGER ->
-                            "👆 Find the BIGGER item!"
+                            "👆 Tap the BIGGER item!"
 
                         QuestionType.BIGGEST ->
                             "👆 Tap the BIGGEST item!"
@@ -187,6 +188,12 @@ fun SizeGameScreen(
                     }
                 }
             }
+
+            // ⭐ ADD CONFETTI HERE
+            ConfettiPlaceholder(
+                visible = state.showSuccessAnimation
+                )
+
 
             Spacer(
                 modifier =

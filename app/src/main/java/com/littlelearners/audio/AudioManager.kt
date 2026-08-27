@@ -3,6 +3,8 @@ package com.littlelearners.audio
 import android.content.Context
 import android.media.MediaPlayer
 
+import com.littlelearners.R
+
 class AudioManager(
     private val context: Context
 ) {
@@ -13,21 +15,23 @@ class AudioManager(
 
     fun playSoftBackgroundMusic() {
 
-        stopBackgroundMusic()
+    stopBackgroundMusic()
 
-        // Uncomment this once background_music.mp3
-        // has been added to res/raw.
-        //
-        // backgroundPlayer =
-        //     MediaPlayer.create(
-        //         context,
-        //         R.raw.background_music
-        //     )
-        //
-        // backgroundPlayer?.isLooping = true
-        // backgroundPlayer?.setVolume(0.15f, 0.15f)
-        // backgroundPlayer?.start()
-    }
+    backgroundPlayer =
+        MediaPlayer.create(
+            context,
+            R.raw.background_music
+        )
+
+    backgroundPlayer?.isLooping = true
+
+    backgroundPlayer?.setVolume(
+        0.15f,
+        0.15f
+    )
+
+    backgroundPlayer?.start()
+}
 
     fun stopBackgroundMusic() {
         backgroundPlayer?.stop()
@@ -54,32 +58,38 @@ class AudioManager(
 
     fun playCorrectSound() {
 
-        /*
-         * Put:
-         *
-         * correct.mp3
-         *
-         * inside:
-         *
-         * app/src/main/res/raw/
-         *
-         * Then replace this placeholder with MediaPlayer.create().
-         */
+    effectPlayer?.release()
+
+    effectPlayer =
+        MediaPlayer.create(
+            context,
+            R.raw.correct
+        )
+
+    effectPlayer?.setOnCompletionListener {
+        it.release()
     }
+
+    effectPlayer?.start()
+}
 
     fun playWrongSound() {
 
-        /*
-         * Put:
-         *
-         * wrong.mp3
-         *
-         * inside:
-         *
-         * app/src/main/res/raw/
-         */
+    effectPlayer?.release()
 
+    effectPlayer =
+        MediaPlayer.create(
+            context,
+            R.raw.wrong
+        )
+
+    effectPlayer?.setOnCompletionListener {
+        it.release()
     }
+
+    effectPlayer?.start()
+}
+
 
     fun release() {
         stopBackgroundMusic()
