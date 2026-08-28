@@ -49,7 +49,7 @@ fun AppNavigation(
                 onMusicChanged =
                     onMusicChanged,
 
-                onSizeGameClicked = {
+                onSizeConceptClick = {
                     gameViewModel.restart()
 
                     currentScreen =
