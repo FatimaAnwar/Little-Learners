@@ -20,7 +20,7 @@ enum class AppScreen {
 @Composable
 fun AppNavigation(
     musicEnabled: Boolean,
-    onMusicChanged: (Boolean) -> Unit
+    onMusicChanged: (Boolean) -> Unit,
     audioManager: AudioManager,
 ) {
 
