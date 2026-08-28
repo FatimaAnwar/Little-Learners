@@ -9,6 +9,7 @@ import com.littlelearners.screens.DashboardScreen
 import com.littlelearners.screens.ResultScreen
 import com.littlelearners.screens.SizeGameScreen
 import com.littlelearners.screens.SizeGameViewModel
+import com.littlelearners.audio.AudioManager
 
 enum class AppScreen {
     DASHBOARD,
@@ -20,6 +21,7 @@ enum class AppScreen {
 fun AppNavigation(
     musicEnabled: Boolean,
     onMusicChanged: (Boolean) -> Unit
+    audioManager: AudioManager,
 ) {
 
     var currentScreen by remember {
@@ -58,23 +60,25 @@ fun AppNavigation(
 
         AppScreen.SIZE_GAME -> {
 
-            SizeGameScreen(
-                viewModel = gameViewModel,
+    SizeGameScreen(
+        viewModel = gameViewModel,
 
-                onBack = {
-                    currentScreen =
-                        AppScreen.DASHBOARD
-                },
+        audioManager = audioManager,
 
-                onFinished = { score ->
+        onBack = {
+            currentScreen =
+                AppScreen.DASHBOARD
+        },
 
-                    finalScore = score
+        onFinished = { score ->
 
-                    currentScreen =
-                        AppScreen.RESULT
-                }
-            )
+            finalScore = score
+
+            currentScreen =
+                AppScreen.RESULT
         }
+    )
+}
 
         AppScreen.RESULT -> {
 

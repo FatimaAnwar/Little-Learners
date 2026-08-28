@@ -18,7 +18,9 @@ class MainActivity : ComponentActivity() {
         savedInstanceState: Bundle?
     ) {
 
-        super.onCreate(savedInstanceState)
+        super.onCreate(
+            savedInstanceState
+        )
 
         setContent {
 
@@ -26,7 +28,9 @@ class MainActivity : ComponentActivity() {
 
                 val audioManager =
                     remember {
-                        AudioManager(this@MainActivity)
+                        AudioManager(
+                            this@MainActivity
+                        )
                     }
 
                 var musicEnabled by remember {
@@ -39,21 +43,31 @@ class MainActivity : ComponentActivity() {
                         .playSoftBackgroundMusic()
 
                     onDispose {
+
                         audioManager.release()
                     }
                 }
 
                 AppNavigation(
-                    musicEnabled = musicEnabled,
+
+                    audioManager =
+                        audioManager,
+
+                    musicEnabled =
+                        musicEnabled,
 
                     onMusicChanged = { enabled ->
 
-                        musicEnabled = enabled
+                        musicEnabled =
+                            enabled
 
                         if (enabled) {
+
                             audioManager
                                 .playSoftBackgroundMusic()
+
                         } else {
+
                             audioManager
                                 .stopBackgroundMusic()
                         }

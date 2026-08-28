@@ -27,10 +27,12 @@ import com.littlelearners.components.AppBackground
 import com.littlelearners.components.SizeObject
 import com.littlelearners.model.QuestionType
 import kotlinx.coroutines.delay
+import com.littlelearners.audio.AudioManager
 
 @Composable
 fun SizeGameScreen(
     viewModel: SizeGameViewModel,
+    audioManager: AudioManager,
     onBack: () -> Unit,
     onFinished: (Int) -> Unit
 ) {
@@ -51,27 +53,54 @@ fun SizeGameScreen(
     // ---------------------------------------------------------
 
     LaunchedEffect(
-        state.selectedIndex,
-        state.questionNumber
-    ) {
+    state.selectedIndex
+) {
 
-        if (state.selectedIndex != null) {
+    if (state.selectedIndex != null) {
 
-            if (state.isCorrect) {
+        if (state.isCorrect) {
 
-                // Give the child time to see
-                // the success animation.
-                delay(2000)
+            // Play success sound immediately.
+            audioManager.playCorrectSound()
 
-            } else {
+            // Give the child time to see the
+            // success animation.
+            delay(2000)
 
-                // Short feedback for wrong answer.
-                delay(800)
-            }
+        } else {
 
-            viewModel.nextQuestion()
+            // Play wrong sound immediately.
+            audioManager.playWrongSound()
+
+            // Brief feedback before moving on.
+            delay(800)
         }
+
+        viewModel.nextQuestion()
     }
+}
+
+LaunchedEffect(
+    state.questionNumber
+) {
+
+    val promptType =
+        when (state.question) {
+
+            QuestionType.BIG ->
+                "big"
+
+            QuestionType.BIGGER ->
+                "bigger"
+
+            QuestionType.BIGGEST ->
+                "biggest"
+        }
+
+    audioManager.playAudioInstruction(
+        promptType
+    )
+}
 
     // ---------------------------------------------------------
     // HANDLE GAME FINISHED
@@ -169,13 +198,13 @@ fun SizeGameScreen(
                     when (state.question) {
 
                         QuestionType.BIG ->
-                            "👆 Find the BIG item!"
+                            "👇 Tap the BIG item!"
 
                         QuestionType.BIGGER ->
-                            "👆 Find the BIGGER item!"
+                            "👇 Tap the BIGGER item!"
 
                         QuestionType.BIGGEST ->
-                            "👆 Tap the BIGGEST item!"
+                            "👇 Tap the BIGGEST item!"
                     },
 
                 modifier =

@@ -2,7 +2,6 @@ package com.littlelearners.audio
 
 import android.content.Context
 import android.media.MediaPlayer
-
 import com.littlelearners.R
 
 class AudioManager(
@@ -10,91 +9,192 @@ class AudioManager(
 ) {
 
     private var backgroundPlayer: MediaPlayer? = null
-
     private var effectPlayer: MediaPlayer? = null
 
+    /**
+     * Plays soft background music continuously.
+     */
     fun playSoftBackgroundMusic() {
 
-    stopBackgroundMusic()
+        // Don't start another player if music is
+        // already playing.
+        if (backgroundPlayer?.isPlaying == true) {
+            return
+        }
 
-    backgroundPlayer =
-        MediaPlayer.create(
-            context,
-            R.raw.background_music
-        )
+        stopBackgroundMusic()
 
-    backgroundPlayer?.isLooping = true
+        backgroundPlayer =
+            MediaPlayer.create(
+                context,
+                R.raw.background_music
+            )
 
-    backgroundPlayer?.setVolume(
-        0.15f,
-        0.15f
-    )
+        backgroundPlayer?.apply {
 
-    backgroundPlayer?.start()
-}
+            isLooping = true
 
+            // Keep the background music quiet
+            // so the child can hear instructions.
+            setVolume(
+                0.12f,
+                0.12f
+            )
+
+            start()
+        }
+    }
+
+    /**
+     * Completely stops background music.
+     */
     fun stopBackgroundMusic() {
-        backgroundPlayer?.stop()
-        backgroundPlayer?.release()
+
+        backgroundPlayer?.let { player ->
+
+            if (player.isPlaying) {
+                player.stop()
+            }
+
+            player.release()
+        }
+
         backgroundPlayer = null
     }
 
-    fun playAudioInstruction(promptType: String) {
+    /**
+     * Plays the instruction for the current question.
+     *
+     * BIG     -> big.mp3
+     * BIGGER  -> bigger.mp3
+     * BIGGEST -> biggest.mp3
+     */
+    fun playAudioInstruction(
+        promptType: String
+    ) {
 
-        /*
-         * Example:
-         *
-         * BIG     -> "Find the big item"
-         * BIGGER  -> "Find the bigger item"
-         * BIGGEST -> "Tap the biggest item"
-         *
-         * Add your recorded MP3 files to:
-         *
-         * app/src/main/res/raw/
-         */
+        stopEffect()
 
-        // Placeholder intentionally left safe for initial build.
+        val audioResource =
+            when (promptType.lowercase()) {
+
+                "big" ->
+                    R.raw.big
+
+                "bigger" ->
+                    R.raw.bigger
+
+                "biggest" ->
+                    R.raw.biggest
+
+                else ->
+                    return
+            }
+
+        effectPlayer =
+            MediaPlayer.create(
+                context,
+                audioResource
+            )
+
+        effectPlayer?.apply {
+
+            setVolume(
+                1.0f,
+                1.0f
+            )
+
+            setOnCompletionListener { player ->
+
+                player.release()
+
+                if (effectPlayer == player) {
+                    effectPlayer = null
+                }
+            }
+
+            start()
+        }
     }
 
+    /**
+     * Plays the correct-answer sound.
+     */
     fun playCorrectSound() {
 
-    effectPlayer?.release()
-
-    effectPlayer =
-        MediaPlayer.create(
-            context,
+        playEffect(
             R.raw.correct
         )
-
-    effectPlayer?.setOnCompletionListener {
-        it.release()
     }
 
-    effectPlayer?.start()
-}
-
+    /**
+     * Plays the wrong-answer sound.
+     */
     fun playWrongSound() {
 
-    effectPlayer?.release()
-
-    effectPlayer =
-        MediaPlayer.create(
-            context,
+        playEffect(
             R.raw.wrong
         )
-
-    effectPlayer?.setOnCompletionListener {
-        it.release()
     }
 
-    effectPlayer?.start()
-}
+    /**
+     * Generic sound-effect player.
+     */
+    private fun playEffect(
+        resourceId: Int
+    ) {
 
+        stopEffect()
 
-    fun release() {
-        stopBackgroundMusic()
+        effectPlayer =
+            MediaPlayer.create(
+                context,
+                resourceId
+            )
 
-        effectPlayer?.release()
+        effectPlayer?.apply {
+
+            setVolume(
+                1.0f,
+                1.0f
+            )
+
+            setOnCompletionListener { player ->
+
+                player.release()
+
+                if (effectPlayer == player) {
+                    effectPlayer = null
+                }
+            }
+
+            start()
+        }
+    }
+
+    /**
+     * Stops the currently playing instruction/effect.
+     */
+    private fun stopEffect() {
+
+        effectPlayer?.let { player ->
+
+            if (player.isPlaying) {
+                player.stop()
+            }
+
+            player.release()
+        }
+
         effectPlayer = null
+    }
+
+    /**
+     * Release all MediaPlayer resources.
+     */
+    fun release() {
+
+        stopBackgroundMusic()
+        stopEffect()
     }
 }
