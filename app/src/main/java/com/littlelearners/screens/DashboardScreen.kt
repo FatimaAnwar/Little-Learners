@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
+
 
 /**
  * Dashboard / Home Screen
@@ -103,7 +107,7 @@ fun DashboardScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        top = 8.dp
+                        top = 5.dp
                     )
             ) {
 
@@ -111,7 +115,7 @@ fun DashboardScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            horizontal = 70.dp
+                            horizontal = 40.dp
                         ),
 
                     horizontalAlignment =
@@ -119,9 +123,9 @@ fun DashboardScreen(
                 ) {
 
                     Text(
-                        text = "🌈 Little Learners 🌈",
+                        text = "🌈Little Learners🌈",
 
-                        fontSize = 30.sp,
+                        fontSize = 25.sp,
 
                         fontWeight =
                             FontWeight.Bold,
@@ -249,7 +253,7 @@ private fun MusicToggleButton(
 
     Surface(
         modifier = modifier
-            .size(40.dp)
+            .size(25.dp)
             .clickable {
 
                 onMusicChanged(
@@ -258,13 +262,13 @@ private fun MusicToggleButton(
             },
 
         shape =
-            RoundedCornerShape(18.dp),
+            RoundedCornerShape(10.dp),
 
         color =
             Color.White,
 
         shadowElevation =
-            8.dp,
+            5.dp,
 
         border =
             BorderStroke(
@@ -287,7 +291,7 @@ private fun MusicToggleButton(
                         "🔇"
                     },
 
-                fontSize = 25.sp
+                fontSize = 15.sp
             )
         }
     }
@@ -301,88 +305,51 @@ private fun MusicToggleButton(
  * Biggest
  */
 @Composable
-private fun SizeConceptCard(
+fun SizeConceptCard(
     onClick: () -> Unit
 ) {
-
-    Surface(
+    Card(
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
-            .clickable {
-                onClick()
-            },
+            .padding(horizontal = 16.dp),
 
-        shape =
-            RoundedCornerShape(35.dp),
+        shape = RoundedCornerShape(24.dp),
 
-        color =
-            Color.White.copy(
-                alpha = 0.95f
-            ),
+        border = BorderStroke(
+            width = 3.dp,
+            color = Color(0xFFFFD88A)
+        ),
 
-        shadowElevation =
-            12.dp,
-
-        border =
-            BorderStroke(
-                width = 5.dp,
-                color =
-                    Color(0xFF7B68EE)
-            )
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFFFF4CC) // Soft yellow
+        )
     ) {
-
         Column(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(20.dp),
-
-            horizontalAlignment =
-                Alignment.CenterHorizontally,
-
-            verticalArrangement =
-                Arrangement.Center
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 20.dp,
+                    vertical = 12.dp
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // -----------------------------------------------------
-            // TITLE
-            // -----------------------------------------------------
 
             Text(
-                text =
-                    "Big, Bigger, Biggest",
-
-                fontSize = 27.sp,
-
-                fontWeight =
-                    FontWeight.Bold,
-
-                textAlign =
-                    TextAlign.Center,
-
-                color =
-                    Color(0xFF3F3D56)
+                text = "Big, Bigger, Biggest",
+                fontSize = 23.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFF3E356B)
             )
 
             Spacer(
-                modifier =
-                    Modifier.height(5.dp)
+                modifier = Modifier.height(3.dp)
             )
 
             Text(
-                text =
-                    "🔵 Learn about sizes!",
-
-                fontSize = 17.sp,
-
-                fontWeight =
-                    FontWeight.Medium,
-
-                color =
-                    Color(0xFF666477),
-
-                textAlign =
-                    TextAlign.Center
+                text = "Learn about sizes!",
+                fontSize = 16.sp,
+                color = Color(0xFF666666)
             )
         }
     }
