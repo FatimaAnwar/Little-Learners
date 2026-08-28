@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ import com.littlelearners.components.AppBackground
 import com.littlelearners.components.SizeObject
 import com.littlelearners.model.QuestionType
 import kotlinx.coroutines.delay
-import com.littlelearners.components.ConfettiPlaceholder
 
 @Composable
 fun SizeGameScreen(
@@ -39,6 +37,19 @@ fun SizeGameScreen(
 
     val state by viewModel.state.collectAsState()
 
+    // ---------------------------------------------------------
+    // HANDLE ANSWER
+    // ---------------------------------------------------------
+    //
+    // When the child selects an answer:
+    //
+    // Correct -> show feedback for 2 seconds
+    // Wrong   -> show feedback briefly
+    //
+    // Then move to the next question.
+    //
+    // ---------------------------------------------------------
+
     LaunchedEffect(
         state.selectedIndex,
         state.questionNumber
@@ -46,18 +57,46 @@ fun SizeGameScreen(
 
         if (state.selectedIndex != null) {
 
-            delay(
-                if (state.isCorrect)
-                    2000
-                else
-                    800
-            )
+            if (state.isCorrect) {
 
-            if (state.gameFinished) {
-                onFinished(state.score)
+                // Give the child time to see
+                // the success animation.
+                delay(2000)
+
             } else {
-                viewModel.nextQuestion()
+
+                // Short feedback for wrong answer.
+                delay(800)
             }
+
+            viewModel.nextQuestion()
+        }
+    }
+
+    // ---------------------------------------------------------
+    // HANDLE GAME FINISHED
+    // ---------------------------------------------------------
+    //
+    // This is intentionally a SEPARATE effect.
+    //
+    // When question 5 is completed, the ViewModel changes:
+    //
+    // gameFinished = true
+    //
+    // This effect detects that change and opens
+    // the Result screen.
+    //
+    // ---------------------------------------------------------
+
+    LaunchedEffect(state.gameFinished) {
+
+        if (state.gameFinished) {
+
+            // Small delay gives Compose time to render
+            // the final answer state before navigation.
+            delay(100)
+
+            onFinished(state.score)
         }
     }
 
@@ -76,6 +115,10 @@ fun SizeGameScreen(
                 Alignment.CenterHorizontally
         ) {
 
+            // -------------------------------------------------
+            // TOP BAR
+            // -------------------------------------------------
+
             Box(
                 modifier =
                     Modifier.fillMaxWidth()
@@ -83,11 +126,13 @@ fun SizeGameScreen(
 
                 TextButton(
                     onClick = onBack,
+
                     modifier =
                         Modifier.align(
                             Alignment.CenterStart
                         )
                 ) {
+
                     Text(
                         text = "← Back",
                         fontSize = 20.sp
@@ -104,7 +149,9 @@ fun SizeGameScreen(
                         ),
 
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+
+                    fontWeight =
+                        FontWeight.Bold
                 )
             }
 
@@ -113,29 +160,44 @@ fun SizeGameScreen(
                     Modifier.height(15.dp)
             )
 
+            // -------------------------------------------------
+            // QUESTION
+            // -------------------------------------------------
+
             Text(
                 text =
                     when (state.question) {
 
                         QuestionType.BIG ->
-                            "👆 Tap the BIG item!"
+                            "👆 Find the BIG item!"
 
                         QuestionType.BIGGER ->
-                            "👆 Tap the BIGGER item!"
+                            "👆 Find the BIGGER item!"
 
                         QuestionType.BIGGEST ->
                             "👆 Tap the BIGGEST item!"
                     },
 
+                modifier =
+                    Modifier.fillMaxWidth(),
+
                 fontSize = 31.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
+
+                fontWeight =
+                    FontWeight.Bold,
+
+                textAlign =
+                    TextAlign.Center
             )
 
             Spacer(
                 modifier =
-                    Modifier.height(30.dp)
+                    Modifier.height(35.dp)
             )
+
+            // -------------------------------------------------
+            // SAME OBJECT - THREE DIFFERENT SIZES
+            // -------------------------------------------------
 
             Row(
                 modifier =
@@ -148,57 +210,99 @@ fun SizeGameScreen(
                     Alignment.CenterVertically
             ) {
 
-                state.objects.forEachIndexed { index, emoji ->
+                // BIG
+                // 100dp
 
-                    val size =
-                        when (index) {
-                            0 -> 100
-                            1 -> 150
-                            else -> 200
-                        }
+                SizeObject(
+                    emoji =
+                        state.objectEmoji,
 
-                    SizeObject(
-                        emoji = emoji,
-                        sizeDp = size,
+                    sizeDp = 100,
 
-                        selected =
-                            state.selectedIndex == index,
+                    selected =
+                        state.selectedIndex == 0,
 
-                        correct =
-                            state.selectedIndex == index &&
-                                    state.isCorrect,
+                    correct =
+                        state.selectedIndex == 0 &&
+                                state.isCorrect,
 
-                        wrong =
-                            state.selectedIndex == index &&
-                                    !state.isCorrect,
+                    wrong =
+                        state.selectedIndex == 0 &&
+                                !state.isCorrect,
 
-                        enabled =
-                            state.selectedIndex == null,
+                    enabled =
+                        state.selectedIndex == null,
 
-                        onClick = {
-                            viewModel.selectObject(index)
-                        }
-                    )
-
-                    if (index < 2) {
-                        Spacer(
-                            modifier =
-                                Modifier.width(4.dp)
-                        )
+                    onClick = {
+                        viewModel.selectObject(0)
                     }
-                }
-            }
-
-            // ⭐ ADD CONFETTI HERE
-            ConfettiPlaceholder(
-                visible = state.showSuccessAnimation
                 )
 
+                // BIGGER
+                // 150dp
+
+                SizeObject(
+                    emoji =
+                        state.objectEmoji,
+
+                    sizeDp = 150,
+
+                    selected =
+                        state.selectedIndex == 1,
+
+                    correct =
+                        state.selectedIndex == 1 &&
+                                state.isCorrect,
+
+                    wrong =
+                        state.selectedIndex == 1 &&
+                                !state.isCorrect,
+
+                    enabled =
+                        state.selectedIndex == null,
+
+                    onClick = {
+                        viewModel.selectObject(1)
+                    }
+                )
+
+                // BIGGEST
+                // 200dp
+
+                SizeObject(
+                    emoji =
+                        state.objectEmoji,
+
+                    sizeDp = 200,
+
+                    selected =
+                        state.selectedIndex == 2,
+
+                    correct =
+                        state.selectedIndex == 2 &&
+                                state.isCorrect,
+
+                    wrong =
+                        state.selectedIndex == 2 &&
+                                !state.isCorrect,
+
+                    enabled =
+                        state.selectedIndex == null,
+
+                    onClick = {
+                        viewModel.selectObject(2)
+                    }
+                )
+            }
 
             Spacer(
                 modifier =
-                    Modifier.height(30.dp)
+                    Modifier.height(35.dp)
             )
+
+            // -------------------------------------------------
+            // CORRECT FEEDBACK
+            // -------------------------------------------------
 
             AnimatedVisibility(
                 visible =
@@ -209,11 +313,22 @@ fun SizeGameScreen(
             ) {
 
                 Text(
-                    text = "🎉 Well Done! 🎉",
+                    text =
+                        "🎉 Well Done! 🎉",
+
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
+
+                    fontWeight =
+                        FontWeight.Bold,
+
+                    textAlign =
+                        TextAlign.Center
                 )
             }
+
+            // -------------------------------------------------
+            // WRONG FEEDBACK
+            // -------------------------------------------------
 
             AnimatedVisibility(
                 visible =
@@ -221,8 +336,13 @@ fun SizeGameScreen(
             ) {
 
                 Text(
-                    text = "😊 Let's try another one!",
-                    fontSize = 25.sp
+                    text =
+                        "😊 Let's try another one!",
+
+                    fontSize = 25.sp,
+
+                    textAlign =
+                        TextAlign.Center
                 )
             }
         }

@@ -2,7 +2,6 @@ package com.littlelearners.screens
 
 import androidx.lifecycle.ViewModel
 import com.littlelearners.data.GameData
-import com.littlelearners.model.Question
 import com.littlelearners.model.QuestionType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,21 +9,31 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlin.random.Random
 
 data class SizeGameState(
-    val questionNumber: Int = 1,
+     val questionNumber: Int = 1,
     val score: Int = 0,
-    val objects: List<String> = emptyList(),
-    val question: QuestionType = QuestionType.BIG,
+
+    val objectEmoji: String = "🧸",
+
+    val question: QuestionType =
+        QuestionType.BIG,
+
     val selectedIndex: Int? = null,
+
     val isCorrect: Boolean = false,
+
     val showSuccessAnimation: Boolean = false,
+
     val showWrongAnimation: Boolean = false,
+
     val gameFinished: Boolean = false
 )
 
 class SizeGameViewModel : ViewModel() {
 
     private val _state =
-        MutableStateFlow(SizeGameState())
+        MutableStateFlow(
+            SizeGameState()
+        )
 
     val state: StateFlow<SizeGameState> =
         _state.asStateFlow()
@@ -35,47 +44,74 @@ class SizeGameViewModel : ViewModel() {
 
     private fun createQuestion() {
 
-        val shuffled =
-            GameData.objects
-                .shuffled()
-                .take(3)
+        /*
+         * Select ONE object.
+         *
+         * All three displayed objects in this
+         * question will use exactly the same object.
+         */
+        val selectedObject =
+            GameData.objects.random()
 
+        /*
+         * Randomly ask the child to find:
+         *
+         * BIG
+         * BIGGER
+         * BIGGEST
+         */
         val question =
             QuestionType.entries.random()
 
         _state.value =
             _state.value.copy(
-                objects = shuffled.map { it.emoji },
-                question = question,
+
+                objectEmoji =
+                    selectedObject.emoji,
+
+                question =
+                    question,
+
                 selectedIndex = null,
+
                 isCorrect = false,
+
                 showSuccessAnimation = false,
-                showWrongAnimation = false
+
+                showWrongAnimation = false,
+
+                gameFinished = false
             )
     }
 
     fun selectObject(index: Int) {
 
+        /*
+         * Prevent multiple taps while the
+         * question is being processed.
+         */
         if (_state.value.selectedIndex != null) {
             return
         }
 
         /*
-         * The objects are always displayed:
+         * The three positions always represent:
          *
-         * index 0 = BIG
-         * index 1 = BIGGER
-         * index 2 = BIGGEST
+         * 0 = BIG
+         * 1 = BIGGER
+         * 2 = BIGGEST
          */
-
         val correctIndex =
             when (_state.value.question) {
 
-                QuestionType.BIG -> 0
+                QuestionType.BIG ->
+                    0
 
-                QuestionType.BIGGER -> 1
+                QuestionType.BIGGER ->
+                    1
 
-                QuestionType.BIGGEST -> 2
+                QuestionType.BIGGEST ->
+                    2
             }
 
         val correct =
@@ -83,43 +119,69 @@ class SizeGameViewModel : ViewModel() {
 
         _state.value =
             _state.value.copy(
-                selectedIndex = index,
-                isCorrect = correct,
+
+                selectedIndex =
+                    index,
+
+                isCorrect =
+                    correct,
+
                 score =
                     if (correct)
                         _state.value.score + 1
                     else
                         _state.value.score,
-                showSuccessAnimation = correct,
-                showWrongAnimation = !correct
+
+                showSuccessAnimation =
+                    correct,
+
+                showWrongAnimation =
+                    !correct
             )
     }
 
     fun nextQuestion() {
 
-        if (_state.value.questionNumber >= 5) {
-
-            _state.value =
-                _state.value.copy(
-                    gameFinished = true
-                )
-
-            return
-        }
+    /*
+     * Question 5 has already been answered.
+     *
+     * Don't create question 6.
+     */
+    if (_state.value.questionNumber >= 5) {
 
         _state.value =
             _state.value.copy(
-                questionNumber =
-                    _state.value.questionNumber + 1
+                gameFinished = true
             )
 
-        createQuestion()
+        return
     }
+
+    /*
+     * Move to the next question.
+     */
+    _state.value =
+        _state.value.copy(
+            questionNumber =
+                _state.value.questionNumber + 1
+        )
+
+    /*
+     * Generate:
+     *
+     * - a new object
+     * - a new question
+     */
+    createQuestion()
+}
 
     fun restart() {
 
         _state.value =
-            SizeGameState()
+            SizeGameState(
+                questionNumber = 1,
+                score = 0
+            )
 
         createQuestion()
     }
