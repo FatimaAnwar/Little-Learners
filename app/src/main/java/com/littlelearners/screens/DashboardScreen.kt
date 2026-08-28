@@ -121,7 +121,7 @@ fun DashboardScreen(
                     Text(
                         text = "🌈 Little Learners 🌈",
 
-                        fontSize = 34.sp,
+                        fontSize = 30.sp,
 
                         fontWeight =
                             FontWeight.Bold,
@@ -141,7 +141,7 @@ fun DashboardScreen(
                     Text(
                         text = "Learn • Have Fun!",
 
-                        fontSize = 18.sp,
+                        fontSize = 15.sp,
 
                         fontWeight =
                             FontWeight.Medium,
@@ -174,7 +174,7 @@ fun DashboardScreen(
 
             Spacer(
                 modifier =
-                    Modifier.height(45.dp)
+                    Modifier.height(30.dp)
             )
 
             // -----------------------------------------------------
@@ -249,7 +249,7 @@ private fun MusicToggleButton(
 
     Surface(
         modifier = modifier
-            .size(70.dp)
+            .size(40.dp)
             .clickable {
 
                 onMusicChanged(
@@ -258,7 +258,7 @@ private fun MusicToggleButton(
             },
 
         shape =
-            RoundedCornerShape(20.dp),
+            RoundedCornerShape(18.dp),
 
         color =
             Color.White,
@@ -268,7 +268,7 @@ private fun MusicToggleButton(
 
         border =
             BorderStroke(
-                width = 3.dp,
+                width = 2.dp,
                 color =
                     Color(0xFFFFFFFF)
             )
@@ -287,7 +287,7 @@ private fun MusicToggleButton(
                         "🔇"
                     },
 
-                fontSize = 32.sp
+                fontSize = 25.sp
             )
         }
     }
@@ -344,44 +344,6 @@ private fun SizeConceptCard(
             verticalArrangement =
                 Arrangement.Center
         ) {
-
-            // -----------------------------------------------------
-            // VISUAL REPRESENTATION
-            // -----------------------------------------------------
-
-            Text(
-                text = "🍎",
-
-                fontSize = 50.sp
-            )
-
-            Spacer(
-                modifier =
-                    Modifier.height(4.dp)
-            )
-
-            Text(
-                text = "🍎",
-
-                fontSize = 75.sp
-            )
-
-            Spacer(
-                modifier =
-                    Modifier.height(4.dp)
-            )
-
-            Text(
-                text = "🍎",
-
-                fontSize = 100.sp
-            )
-
-            Spacer(
-                modifier =
-                    Modifier.height(8.dp)
-            )
-
             // -----------------------------------------------------
             // TITLE
             // -----------------------------------------------------
