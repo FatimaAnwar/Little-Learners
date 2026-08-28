@@ -37,8 +37,8 @@ class AudioManager(
             // Keep the background music quiet
             // so the child can hear instructions.
             setVolume(
-                0.12f,
-                0.12f
+                0.75f,
+                0.75f
             )
 
             start()

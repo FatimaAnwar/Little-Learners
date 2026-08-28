@@ -1,54 +1,58 @@
 [
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_tree.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/tree.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_wrong.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\wrong.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/raw_wrong.mp3.flat",
-        "source": "com.littlelearners.app-main-44:/raw/wrong.mp3"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_background_music.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\background_music.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_gift.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/gift.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_bigger.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\bigger.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_teddy.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/teddy.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_gift.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\gift.png"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_car.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/car.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_puppy.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\puppy.png"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/raw_bigger.mp3.flat",
-        "source": "com.littlelearners.app-main-44:/raw/bigger.mp3"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_big.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\big.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/raw_biggest.mp3.flat",
-        "source": "com.littlelearners.app-main-44:/raw/biggest.mp3"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_biggest.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\biggest.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_puppy.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/puppy.png"
-    },
-    {
-        "merged": "com.littlelearners.app-debug-42:/raw_correct.mp3.flat",
-        "source": "com.littlelearners.app-main-44:/raw/correct.mp3"
-    },
-    {
-        "merged": "com.littlelearners.app-debug-42:/drawable_star.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/star.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_star.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\star.png"
     },
     {
         "merged": "com.littlelearners.app-debug-42:/raw_background_music.mp3.flat",
         "source": "com.littlelearners.app-main-44:/raw/background_music.mp3"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/raw_big.mp3.flat",
-        "source": "com.littlelearners.app-main-44:/raw/big.mp3"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_tree.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\tree.png"
     },
     {
-        "merged": "com.littlelearners.app-debug-42:/drawable_apple.png.flat",
-        "source": "com.littlelearners.app-main-44:/drawable/apple.png"
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_teddy.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\teddy.png"
+    },
+    {
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\raw_correct.mp3.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\raw\\correct.mp3"
+    },
+    {
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_apple.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\apple.png"
+    },
+    {
+        "merged": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-debug-42:\\drawable_car.png.flat",
+        "source": "C:\\Users\\Haier-PC\\.gradle\\daemon\\9.6.0\\com.littlelearners.app-main-44:\\drawable\\car.png"
     }
 ]

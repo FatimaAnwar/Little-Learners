@@ -318,11 +318,11 @@ fun SizeConceptCard(
 
         border = BorderStroke(
             width = 3.dp,
-            color = Color(0xFFFFD88A)
+            color = Color(0xFFFFE5D6)
         ),
 
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFFFFF4CC) // Soft yellow
+            containerColor = Color(0xFFFFE5D6)
         )
     ) {
         Column(
